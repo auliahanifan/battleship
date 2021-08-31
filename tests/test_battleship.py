@@ -1,6 +1,4 @@
-
 from model.battleship import Battleship
-
 
 def test_get_damage_health_change(mocker):
     sut = Battleship()
