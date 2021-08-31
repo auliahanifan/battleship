@@ -11,10 +11,10 @@ class Player:
     
     @property
     def healths(self):
-        return self.defense_battleground.get_power()
+        return self.defense_battleground.get_remaining_power()
     
     def get_current_def_battleship(self):
         return self.defense_battleground.show_map()
 
     def attack(self, other_player: Player):
-        other_player.defense_battleground.get_challenge(self.attack_battleground)
+        other_player.defense_battleground.get_battle_with(self.attack_battleground)

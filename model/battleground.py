@@ -43,7 +43,7 @@ class Battleground:
         
         return map_string
     
-    def get_challenge(self, opponent_battleground: Battleground):
+    def get_battle_with(self, opponent_battleground: Battleground):
         if len(self.__map) != len(opponent_battleground.map):
             raise Exception('Sorry, not same vertical battleground')
 
@@ -61,7 +61,7 @@ class Battleground:
                     else:
                         self.__map[y][x] = f'{opponent_battleground.map[y][x]}'
 
-    def get_power(self):
+    def get_remaining_power(self):
         power = 0
         for y in self.__map:
             for x in y:
