@@ -1,35 +1,25 @@
+from unittest.mock import MagicMock
 from model.missile import Missile
 from model.battleship import Battleship
 from model.player import Player
 from model.battleground import Battleground
 
 def test_get_current_def_battleground_map(mocker):
-    def_battleground = Battleground(2)
-    positions = [[1,1], [0, 1]]
-    ship = Battleship()
-    def_battleground.set_objects(positions, ship)
+    def_battleground = MagicMock()
+    def_battleground.show_map.return_value = 'test'
 
     sut = Player(def_battleground, None)
     
-    assert def_battleground.show_map() == sut.get_current_def_battleground_map()
+    assert 'test' == sut.get_current_def_battleground_map()
 
 def test_attack(mocker):
-    def_battleground = Battleground(2)
-    positions = [[1,1], [0, 1]]
-    ship = Battleship()
-    def_battleground.set_objects(positions, ship)
+    mock_battleground = MagicMock()
+    mock_opponent = MagicMock()
+    sut = Player(None, mock_battleground)
 
-    att_battleground = Battleground(2)
-    positions = [[1,1], [0, 1]]
-    missile = Missile()
-    att_battleground.set_objects(positions, missile)
+    sut.attack(mock_opponent)
 
-    opponent = Player(def_battleground, None)
-    sut = Player(None, att_battleground)
-
-    sut.attack(opponent)
-
-    assert 0 == opponent.healths
+    mock_opponent.defense_battleground.get_battle_with.assert_called_once_with(mock_battleground)
 
 
 
