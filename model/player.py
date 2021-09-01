@@ -1,8 +1,6 @@
 from __future__ import annotations
 from model.battleground import Battleground
 
-from typing import Type
-
 class Player:
 
     def __init__(self, defense_battleground: Battleground, attack_battleground: Battleground) -> None:
