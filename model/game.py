@@ -12,10 +12,10 @@ class Game():
     def get_result(self) -> str:
         result = ''
         result += 'Player 1 \n'
-        result += self.__player1.get_current_def_battleship()
+        result += self.__player1.get_current_def_battleground_map()
         result += '\n'
         result += 'Player 2 \n'
-        result += self.__player2.get_current_def_battleship()
+        result += self.__player2.get_current_def_battleground_map()
         result += '\n'
 
         result += f'P1: {self.__player1.healths}\n'

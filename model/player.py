@@ -11,7 +11,7 @@ class Player:
     def healths(self):
         return self.defense_battleground.get_remaining_power()
     
-    def get_current_def_battleship(self):
+    def get_current_def_battleground_map(self):
         return self.defense_battleground.show_map()
 
     def attack(self, other_player: Player):
