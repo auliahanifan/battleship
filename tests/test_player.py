@@ -1,8 +1,5 @@
 from unittest.mock import MagicMock
-from model.missile import Missile
-from model.battleship import Battleship
 from model.player import Player
-from model.battleground import Battleground
 
 def test_get_current_def_battleground_map(mocker):
     mock_battleground = MagicMock()
