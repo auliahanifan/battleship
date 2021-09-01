@@ -5,6 +5,7 @@ from model.battleship import Battleship
 class Battleground:
     __map = None
     __EMPTY_SYMBOL = '_'
+    total_power = 0
 
     def __init__(self, length) -> None:
         self.__map = []
@@ -25,11 +26,13 @@ class Battleground:
         for position in positions:
             x = position[0]
             y = position[1]
+            value_of_object = position[2]
             # instantiate new object instead
             if isinstance(object, Battleship):
-                self.__map[x][y] = Battleship()
+                self.__map[x][y] = Battleship(value_of_object)
+                self.total_power += value_of_object
             elif isinstance(object, Missile):
-                self.__map[x][y] = Missile()
+                self.__map[x][y] = Missile(value_of_object)
 
     def show_map(self):
         map_string = ''
@@ -48,13 +51,19 @@ class Battleground:
             raise Exception('Sorry, not same vertical battleground')
 
         for y in range(len(self.__map)):
-            if len(self.__map[y]) != len(opponent_battleground.map[y]):
-                raise Exception('Sorry, not same horizontal battleground')
-            
             for x in range(len(self.__map[y])):
                 if isinstance(opponent_battleground.map[y][x], Missile):
                     if isinstance(self.__map[y][x], Battleship):
+                        # collide the missile to battleship
                         battleship = self.__map[y][x]
+                        
+                        # calculate the total power
+                        temp = battleship.health - opponent_battleground.map[y][x].damage
+                        if temp >= 0:
+                            self.total_power -= opponent_battleground.map[y][x].damage
+                        else:
+                            self.total_power -= battleship.health
+
                         battleship.get_damage(opponent_battleground.map[y][x].damage)
                         self.__map[y][x] = battleship
 
@@ -62,10 +71,10 @@ class Battleground:
                         self.__map[y][x] = f'{opponent_battleground.map[y][x]}'
 
     def get_remaining_power(self):
-        power = 0
-        for y in self.__map:
-            for x in y:
-                if isinstance(x, Battleship):
-                    power += x.health
-        return power
+        return self.total_power
+        # power = 0
+        # for y in self.__map:
+        #     for x in y:
+        #         if isinstance(x, Battleship):
+        #             power += x.health
 

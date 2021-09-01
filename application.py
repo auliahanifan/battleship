@@ -23,22 +23,22 @@ class Application:
         if self.ship_number > config.MAX_BATTLESHIP:
             raise Exception(f'Number of ships is greater than {config.MAX_BATTLESHIP}')
 
-        self.player_1_ship_positions = self.parse_positions(lines[2])
-        if len(self.player_1_ship_positions) != self.ship_number:
+        self.player_1_ship_positions_and_value = self.parse_positions(lines[2])
+        if len(self.player_1_ship_positions_and_value) != self.ship_number:
             raise Exception('Amount of ship player 1 and length of positions are not same')
 
-        self.player_2_ship_positions = self.parse_positions(lines[3])
-        if len(self.player_2_ship_positions) != self.ship_number:
+        self.player_2_ship_positions_and_value = self.parse_positions(lines[3])
+        if len(self.player_2_ship_positions_and_value) != self.ship_number:
             raise Exception('Amount of ship player 2 and length of positions are not same')
         
         self.missile_number = int(lines[4])
 
-        self.player_1_missile_positions = self.parse_positions(lines[5])
-        if len(self.player_1_missile_positions) != self.ship_number:
+        self.player_1_missile_positions_and_value = self.parse_positions(lines[5])
+        if len(self.player_1_missile_positions_and_value) != self.ship_number:
             raise Exception('Amount of missile player 1 and length of positions are not same')
 
-        self.player_2_missile_positions = self.parse_positions(lines[6])
-        if len(self.player_2_missile_positions) != self.ship_number:
+        self.player_2_missile_positions_and_value = self.parse_positions(lines[6])
+        if len(self.player_2_missile_positions_and_value) != self.ship_number:
             raise Exception('Amount of missile player 2 and length of positions are not same')
 
         f.close()
@@ -47,11 +47,11 @@ class Application:
         temp_positions = positions_string.split(':')
         positions = list()
         for temp in temp_positions:
-            coords = temp.split(',')
+            vals = temp.split(',')
             position = list()
 
-            for coord in coords:
-                position.append(int(coord))
+            for val in vals:
+                position.append(int(val))
 
             positions.append(position)
 
@@ -59,8 +59,8 @@ class Application:
     
     def start_game(self):
         self.read_file()
-        player_1 = PlayerFactory.create_new_player(self.length_battleground, self.player_1_ship_positions, self.player_1_missile_positions)
-        player_2 = PlayerFactory.create_new_player(self.length_battleground, self.player_2_ship_positions, self.player_2_missile_positions)
+        player_1 = PlayerFactory.create_new_player(self.length_battleground, self.player_1_ship_positions_and_value, self.player_1_missile_positions_and_value)
+        player_2 = PlayerFactory.create_new_player(self.length_battleground, self.player_2_ship_positions_and_value, self.player_2_missile_positions_and_value)
         game = Game(player_1, player_2)
         game.start_battle()
         result = game.get_result()

@@ -1,8 +1,8 @@
 Player 1 
-O O _ _ _ 
-_ X _ _ _ 
+O _ _ O _ 
+_ B _ _ _ 
 B _ _ X _ 
-_ _ _ _ B 
+_ O _ _ B 
 _ _ _ X _ 
 
 Player 2 
@@ -12,7 +12,7 @@ _ _ _ X _
 B O _ _ B 
 _ X _ O _ 
 
-P1: 2
-P2: 2
+P1: 15
+P2: 10
 
-It is Draw
+Player 1 Win

@@ -1,18 +1,29 @@
 from unittest.mock import MagicMock
 from model.player import Player
 
-def test_get_current_def_battleground_map(mocker):
-    mock_battleground = MagicMock()
-    mock_battleground.show_map.return_value = 'test'
 
-    sut = Player(mock_battleground, None)
+def test_get_health(mocker):
+    mock = MagicMock()
+
+    sut = Player(mock, None)
+    sut.healths
+
+    mock.get_remaining_power.assert_called_once()
+
+
+def test_get_current_def_battleground_map(mocker):
+    mock = MagicMock()
+    mock.show_map.return_value = 'test'
+
+    sut = Player(mock, None)
     
     assert 'test' == sut.get_current_def_battleground_map()
-    mock_battleground.show_map.assert_called_once()
+    mock.show_map.assert_called_once()
 
 def test_attack(mocker):
     mock_battleground = MagicMock()
     mock_opponent = MagicMock()
+    
     sut = Player(None, mock_battleground)
 
     sut.attack(mock_opponent)

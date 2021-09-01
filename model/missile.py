@@ -1,6 +1,6 @@
 class Missile:
-    def __init__(self):
-        self.__damage = 1
+    def __init__(self, damage=1):
+        self.__damage = damage
     
     def __str__(self) -> str:
         return 'O'
