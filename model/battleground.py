@@ -5,7 +5,7 @@ from model.battleship import Battleship
 class Battleground:
     __map = None
     __EMPTY_SYMBOL = '_'
-    total_power = 0
+    __total_power = 0
 
     def __init__(self, length) -> None:
         self.__map = []
@@ -29,10 +29,10 @@ class Battleground:
             value_of_object = position[2]
             # instantiate new object instead
             if isinstance(object, Battleship):
-                self.__map[x][y] = Battleship(value_of_object)
-                self.total_power += value_of_object
+                self.__map[y][x] = Battleship(value_of_object)
+                self.__total_power += value_of_object
             elif isinstance(object, Missile):
-                self.__map[x][y] = Missile(value_of_object)
+                self.__map[y][x] = Missile(value_of_object)
 
     def show_map(self):
         map_string = ''
@@ -56,13 +56,13 @@ class Battleground:
                     if isinstance(self.__map[y][x], Battleship):
                         # collide the missile to battleship
                         battleship = self.__map[y][x]
-                        
+
                         # calculate the total power
                         temp = battleship.health - opponent_battleground.map[y][x].damage
                         if temp >= 0:
-                            self.total_power -= opponent_battleground.map[y][x].damage
+                            self.__total_power -= opponent_battleground.map[y][x].damage
                         else:
-                            self.total_power -= battleship.health
+                            self.__total_power -= battleship.health
 
                         battleship.get_damage(opponent_battleground.map[y][x].damage)
                         self.__map[y][x] = battleship
@@ -71,7 +71,7 @@ class Battleground:
                         self.__map[y][x] = f'{opponent_battleground.map[y][x]}'
 
     def get_remaining_power(self):
-        return self.total_power
+        return self.__total_power
         # power = 0
         # for y in self.__map:
         #     for x in y:
